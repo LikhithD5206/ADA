@@ -1,0 +1,54 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+
+void swap(int *a,int *b){
+int temp=*a;
+*a=*b;
+*b=temp;
+}
+int partition(int arr[],int low,int high){
+    int pivot = arr[high];
+    int i = (low - 1);
+    for (int j = low; j < high; j++)
+    {   
+        int temp = arr[j];
+        if (temp < pivot)
+        {
+            i++;
+            swap(&arr[i], &arr[j]);
+            }
+            }
+            swap(&arr[i + 1], &arr[high]);
+            return (i + 1);
+            }
+            int quicksort(int arr[], int low, int high)
+            {
+                if (low < high)
+                {
+                    int pivot = partition(arr, low, high);
+                    quicksort(arr, low, pivot - 1);
+                    quicksort(arr, pivot + 1, high);
+                }}
+ int main()
+             { clock_t start,end;
+                    int n;
+                    printf("Enter the number of elements: ");
+                    scanf("%d",&n);
+                    int a[n];
+                    for(int i=0;i<n;i++)
+                    {
+                       a[i]=rand();
+                       }
+                        start = clock();
+                        quicksort(a, 0, n - 1);
+                        end=clock();
+                        printf("sorted array is: \n");
+                        for (int i = 0; i < n; i++)
+                        {
+                            printf("%d ", a[i]);
+                            }
+                          
+                         double tt=(double)(end-start)/CLOCKS_PER_SEC;
+        printf("\nTime taken by quick sort algorithm is:%f seconds",tt);
+                       return 0; }
