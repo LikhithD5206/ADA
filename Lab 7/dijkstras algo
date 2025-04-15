@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <conio.h>  // Note: Only works in Turbo C/C++ style environments
+
+void main() {
+    int i, j, n, v, k, min, u;
+    int c[20][20], s[20], d[20];
+
+
+    printf("\nEnter the number of vertices: ");
+    scanf("%d", &n);
+
+    printf("\nEnter the cost adjacency matrix:\n");
+    printf("Enter 999 for no edge (infinity equivalent):\n");
+
+    for (i = 1; i <= n; i++) {
+        for (j = 1; j <= n; j++) {
+            scanf("%d", &c[i][j]);
+        }
+    }
+
+    printf("\nEnter the source vertex: ");
+    scanf("%d", &v);
+
+    // Initialization
+    for (i = 1; i <= n; i++) {
+        s[i] = 0;           // Mark all nodes as unvisited
+        d[i] = c[v][i];     // Initialize distances with direct edges from source
+    }
+
+    d[v] = 0; // Distance to source is zero
+    s[v] = 1; // Mark source as visited
+
+    // Dijkstra's main loop
+    for (k = 2; k <= n; k++) {
+        min = 999;
+
+        // Find the minimum distance unvisited vertex
+        for (i = 1; i <= n; i++) {
+            if (s[i] == 0 && d[i] < min) {
+                min = d[i];
+                u = i;
+            }
+        }
+
+        s[u] = 1; // Mark vertex `u` as visited
+
+        // Update distances for unvisited neighbors
+        for (i = 1; i <= n; i++) {
+            if (s[i] == 0) {
+                if (d[i] > d[u] + c[u][i]) {
+                    d[i] = d[u] + c[u][i];
+                }
+            }
+        }
+    }
+
+    // Output the result
+    printf("\nThe shortest distances from vertex %d are:\n", v);
+    for (i = 1; i <= n; i++) {
+        printf("%d --> %d = %d\n", v, i, d[i]);
+    }
+
+    getch();
+}
