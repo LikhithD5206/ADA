@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <conio.h>
+#include <math.h>
+
+int x[20], count = 1;
+
+void queens(int, int);
+int place(int, int);
+
+void main() {
+    int n, k = 1;
+
+    printf("\nEnter the number of queens to be placed: ");
+    scanf("%d", &n);
+
+    queens(k, n);
+}
+
+// Recursive function to solve N-Queens
+void queens(int k, int n) {
+    int i, j;
+
+    for (j = 1; j <= n; j++) {
+        if (place(k, j)) {
+            x[k] = j;
+
+            if (k == n) {
+                printf("\n\n%d solution", count++);
+                for (i = 1; i <= n; i++) {
+                    printf("\n\tRow %d <--> Column %d", i, x[i]);
+                }
+                getch();  // Wait for keypress before showing next
+            } else {
+                queens(k + 1, n);
+            }
+        }
+    }
+}
+
+// Check if a queen can be placed at row k and column j
+int place(int k, int j) {
+    int i;
+    for (i = 1; i < k; i++) {
+        if (x[i] == j || abs(x[i] - j) == abs(i - k)) {
+            return 0;
+        }
+    }
+    return 1;
+}
