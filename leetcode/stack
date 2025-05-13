@@ -1,0 +1,20 @@
+1441.Leetcode
+class Solution {
+    public List<String> buildArray(int[] target, int n) {
+        int i=0;
+        int j=0;
+        List<String> li = new ArrayList<>();
+        while(i<target.length){
+                j++;
+                if(j==target[i]){
+                    li.add("Push");
+                    i++;
+                }
+                else{
+                    li.add("Push");
+                    li.add("Pop");
+                }
+            }
+        return li;
+    }
+}
